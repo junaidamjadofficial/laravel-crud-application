@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -26,7 +27,8 @@ class HomeController extends Controller
     public function index()
     {
 
-        return view('home.homepage');
+        $posts = Post::with("user")->orderBy("id","DESC")->get();
+        return view('home', compact("posts"));
   
     }
 }
